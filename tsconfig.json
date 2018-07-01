@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "downlevelIteration": true,
+        "alwaysStrict": true,
+        "outDir": "lib",
+        "sourceMap": true,
+        "declaration": true,
+        "removeComments": false,
+        "strict": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "lib": [
+            "es6"
+        ]
+    },
+    "include": [
+        "mobx/**/*.ts"
+    ]
+}
