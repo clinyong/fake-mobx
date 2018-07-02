@@ -1,13 +1,14 @@
 import { IObservers } from "../utils/reactive";
 import { globalState } from "../utils/globalstate";
-import { observable } from "..";
 
-export class ObservableValue {
-  value: any;
+class ProxyObject {
   observers: IObservers = {};
 
-  constructor(value) {
-    this.value = observable(value);
+  constructor(v) {
+    return new Proxy(v, {
+      get: this.get.bind(this),
+      set: this.set.bind(this)
+    });
   }
 
   private reportObserved() {
@@ -33,13 +34,22 @@ export class ObservableValue {
     }
   }
 
-  get() {
+  get(target, prop) {
     this.reportObserved();
-    return this.value;
+    return Reflect.get(target, prop);
   }
 
-  set(value) {
-    this.value = observable(value);
+  set(target, prop, value) {
+    Reflect.set(target, prop, observable(value));
     this.reportChanged();
+    return true;
+  }
+}
+
+export function observable(v: any) {
+  if (typeof v === "object") {
+    return new ProxyObject(v);
+  } else {
+    return v;
   }
 }

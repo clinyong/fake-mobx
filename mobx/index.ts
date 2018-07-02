@@ -1,14 +1,6 @@
-import { extendObservable } from "./core/extendobservable";
+export { observable } from "./core/observable";
+
 import { Reaction } from "./core/reaction";
-import { isPlainObject } from "./utils/utils";
-
-export function observable(v: any) {
-  if (isPlainObject(v)) {
-    return extendObservable(v);
-  }
-
-  return v;
-}
 
 export function autorun(view: () => any) {
   let reaction: Reaction;
