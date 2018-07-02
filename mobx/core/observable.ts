@@ -46,9 +46,9 @@ class ProxyObject {
   }
 }
 
-export function observable(v: any) {
+export function observable<T>(v: T): T {
   if (typeof v === "object") {
-    return new ProxyObject(v);
+    return new ProxyObject(v) as any;
   } else {
     return v;
   }
